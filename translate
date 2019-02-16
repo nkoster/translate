@@ -1,18 +1,14 @@
 #!/bin/bash
-
 ol="nl" ## Default is dutch.
-
 if [ $# -lt 2 ]; then
     echo -ne "\nUsage: $0 <text> <target language> [source language]\n"
     echo -ne "The default original language is $ol\n\n"
     echo -ne "Examples:\n\n$0 aap ru\nобезьяна\n\n$0 обезьяна us ru\na monkey\n\n"
     exit 1
 fi
-
 if [ $# -gt 2 ]; then
     ol="$3"
 fi
-
 echo "$(wget -U "Mozilla/5.0" -qO - \
 "https://translate.googleapis.com/translate_a/single?client=gtx&sl=$ol&tl=$2&dt=t&q=$1" | \
 awk -F '"' '{print$2}')"
